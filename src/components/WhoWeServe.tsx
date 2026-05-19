@@ -118,7 +118,7 @@ export default function WhoWeServe({ lang }: WhoWeServeProps) {
           pointerEvents: "none",
         }}
       >
-        <source src="/assets/videos/portfolio-bg.mp4" type="video/mp4" />
+        <source src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/assets/videos/portfolio-bg.mp4`} type="video/mp4" />
       </video>
 
       {/* ── Dark gradient overlay — z-index 1 ──────────────────────────── */}

@@ -1,18 +1,16 @@
 import type { NextConfig } from "next";
 
+// NEXT_PUBLIC_BASE_PATH is injected by the GitHub Actions workflow.
+// Locally it is empty so dev server works at localhost:3000 as normal.
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const nextConfig: NextConfig = {
-  // Serve mp4 with correct MIME type so browsers don't refuse to play
-  async headers() {
-    return [
-      {
-        source: "/assets/videos/:path*.mp4",
-        headers: [
-          { key: "Content-Type", value: "video/mp4" },
-          { key: "Accept-Ranges", value: "bytes" },
-          { key: "Cache-Control", value: "public, max-age=86400" },
-        ],
-      },
-    ];
+  output: "export",        // static HTML export — required for GitHub Pages
+  basePath,                // e.g. "/azmat-qatar" on GitHub Pages
+  assetPrefix: basePath,   // prefix for _next/static assets
+  trailingSlash: true,     // index.html per route — required for static hosting
+  images: {
+    unoptimized: true,     // next/image optimisation requires a server; disable for static
   },
 };
 
